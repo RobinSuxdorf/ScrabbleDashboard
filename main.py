@@ -24,7 +24,6 @@
 #         inline=True,
 #         id='checklist-control'
 #     ),
-#     dcc.Graph(figure=px.histogram(df, x='Sieger', color='Sieger', color_discrete_map=player_colors)),
 #     dcc.Graph(figure={}, id='graph_score_distribution')
 # ])
 
@@ -49,17 +48,17 @@
 
 #     return fig
 
-# if __name__ == '__main__':
-#     app.run(debug=True)
-
 from dash import Dash
+import pandas as pd
 
 from components.layout import create_layout
 
 def main() -> None:
+    data = pd.read_csv('./Spiele-Tabelle.csv', index_col=0)
+
     app = Dash(__name__)
     app.title = 'Scrabble Dashboard'
-    app.layout = create_layout(app)
+    app.layout = create_layout(app, data)
     app.run()
 
 if __name__ == '__main__':
