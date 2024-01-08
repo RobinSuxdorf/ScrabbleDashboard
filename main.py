@@ -48,7 +48,7 @@
 
 #     return fig
 
-# data loader
+# refactor csv
 # score distribution
 # distance to winner distribution
 # highest score, etc.
@@ -60,9 +60,12 @@ from dash import Dash
 import pandas as pd
 
 from components.layout import create_layout
+from data.loader import load_scrabble_data
+
+DATA_PATH = "./Spiele-Tabelle.csv"
 
 def main() -> None:
-    data = pd.read_csv('./Spiele-Tabelle.csv', index_col=0)
+    data = load_scrabble_data(DATA_PATH)
 
     app = Dash(__name__)
     app.title = 'Scrabble Dashboard'
