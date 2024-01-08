@@ -48,6 +48,14 @@
 
 #     return fig
 
+# data loader
+# score distribution
+# distance to winner distribution
+# highest score, etc.
+# game tab
+# player stats
+# add entry
+
 from dash import Dash
 import pandas as pd
 
