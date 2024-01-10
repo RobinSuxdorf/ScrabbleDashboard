@@ -22,6 +22,7 @@ def load_scrabble_data(path: str) -> pd.DataFrame:
             DataSchema.DENIZ_SPIELVERLAUF: object,
             DataSchema.DANYEL_SPIELVERLAUF: object,
             DataSchema.ROBIN_SPIELVERLAUF: object
-        }
+        },
+        index_col=0
     )
     return data
