@@ -1,4 +1,3 @@
-# filter data correctly
 # distance to winner distribution
 # highest score, etc.
 # player stats

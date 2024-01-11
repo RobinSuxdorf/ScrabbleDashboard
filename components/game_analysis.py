@@ -5,7 +5,7 @@ import pandas as pd
 from data.loader import DataSchema
 
 def render(app: Dash, data: pd.DataFrame) -> html.Div:
-    filtered_data = data[data[DataSchema.DENIZ_SCORES].isna() == False]
+    filtered_data = data.dropna(subset=[DataSchema.DENIZ_SCORES, DataSchema.DANYEL_SCORES, DataSchema.ROBIN_SCORES])
 
     return html.Div(
         children=[
@@ -16,7 +16,8 @@ def render(app: Dash, data: pd.DataFrame) -> html.Div:
                     {"name": i, "id": i} for i in filtered_data.columns 
                     if i not in [DataSchema.DENIZ_SCORES, DataSchema.DANYEL_SCORES, DataSchema.ROBIN_SCORES]
                 ],
-                row_selectable='single'
+                row_selectable='single',
+                selected_rows=[0]
             ),
             html.Div(id='game_process_graph')
         ]
