@@ -1,11 +1,10 @@
-# refactor csv, filter data correctly
-# update csv
-# score distribution
+# filter data correctly
 # distance to winner distribution
 # highest score, etc.
 # player stats
 # add entry
 # player colors
+
 # separate components in different folders
 # readme -> run the app
 # improve imports from ... import ()
@@ -18,7 +17,7 @@ from components.layout import create_layout
 from data.loader import load_scrabble_data
 from components.callbacks import get_callbacks
 
-DATA_PATH = "./Spiele-Tabelle.csv"
+DATA_PATH = "./scrabble_data.csv"
 
 def main() -> None:
     data = load_scrabble_data(DATA_PATH)

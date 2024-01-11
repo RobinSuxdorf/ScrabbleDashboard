@@ -1,7 +1,7 @@
 from dash import Dash, dcc, html, Input, Output
 import pandas as pd
 
-from . import win_distribution_chart
+from . import overview
 from . import game_analysis
 
 def create_layout(app: Dash, data: pd.DataFrame) -> html.Div:
@@ -11,7 +11,7 @@ def create_layout(app: Dash, data: pd.DataFrame) -> html.Div:
     )
     def render_content(tab: str) -> html.Div:
         if tab == 'tab_overview':
-            return win_distribution_chart.render(app, data)
+            return overview.render(app, data)
 
         elif tab == 'tab_game_analysis':
             return game_analysis.render(app, data)

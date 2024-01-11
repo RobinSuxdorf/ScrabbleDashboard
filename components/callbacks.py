@@ -24,9 +24,9 @@ def get_callbacks(app: Dash) -> None:
         game_data = data[selected_row]
 
         game_data_dict = {
-            DataSchema.DENIZ: clean_game_data(game_data[DataSchema.DENIZ_SPIELVERLAUF]),
-            DataSchema.DANYEL: clean_game_data(game_data[DataSchema.DANYEL_SPIELVERLAUF]),
-            DataSchema.ROBIN: clean_game_data(game_data[DataSchema.ROBIN_SPIELVERLAUF])
+            DataSchema.DENIZ: clean_game_data(game_data[DataSchema.DENIZ_SCORES]),
+            DataSchema.DANYEL: clean_game_data(game_data[DataSchema.DANYEL_SCORES]),
+            DataSchema.ROBIN: clean_game_data(game_data[DataSchema.ROBIN_SCORES])
         }
 
         game_data_dict['x_values'] = range(len(game_data_dict[DataSchema.DENIZ]))
