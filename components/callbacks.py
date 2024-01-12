@@ -3,6 +3,7 @@ import plotly.express as px
 import pandas as pd
 
 from data.loader import DataSchema
+from . import styling
 
 def get_callbacks(app: Dash) -> None:
     def clean_game_data(score_data: str) -> list[int]:
@@ -35,6 +36,13 @@ def get_callbacks(app: Dash) -> None:
 
         return html.Div(
             children=[
-                dcc.Graph(figure=px.line(game_df, x='x_values', y=[DataSchema.DENIZ, DataSchema.DANYEL, DataSchema.ROBIN]))
+                dcc.Graph(
+                    figure=px.line(
+                        game_df, 
+                        x='x_values', 
+                        y=[DataSchema.DENIZ, DataSchema.DANYEL, DataSchema.ROBIN],
+                        color_discrete_map=styling.COLOR_MAP
+                    )
+                )
             ]
         )

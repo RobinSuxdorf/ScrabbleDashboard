@@ -1,9 +1,9 @@
 import pandas as pd
 
 class DataSchema:
-    DENIZ = "deniz"
-    DANYEL = "danyel"
-    ROBIN = "robin"
+    DENIZ = "Deniz"
+    DANYEL = "Danyel"
+    ROBIN = "Robin"
     WINNER = "winner"
     STARTING_PLAYER = "starting_player"
     DENIZ_SCORES = "deniz_scores"
