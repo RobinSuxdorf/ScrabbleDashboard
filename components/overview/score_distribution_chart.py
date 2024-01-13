@@ -3,7 +3,7 @@ import plotly.express as px
 import pandas as pd
 
 from data.loader import DataSchema
-from . import styling
+from ..global_stylings import styling
 
 def render(app: Dash, data: pd.DataFrame) -> html.Div:
     return html.Div(

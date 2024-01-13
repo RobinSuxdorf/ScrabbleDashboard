@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 
 from data.loader import DataSchema
-from . import styling
+from ..global_stylings import styling
 
 def render(app: Dash, data: pd.DataFrame) -> html.Div:
     win_counts = data[DataSchema.WINNER].value_counts()

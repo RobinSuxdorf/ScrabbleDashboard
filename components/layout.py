@@ -1,8 +1,8 @@
 from dash import Dash, dcc, html, Input, Output
 import pandas as pd
 
-from . import overview
-from . import game_analysis
+from .overview import overview
+from .game_analysis import game_analysis
 
 def create_layout(app: Dash, data: pd.DataFrame) -> html.Div:
     @app.callback(

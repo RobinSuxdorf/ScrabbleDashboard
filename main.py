@@ -1,7 +1,6 @@
 # highest score, etc.
 # design
 
-# separate components in different folders
 # readme -> run the app
 # improve imports from ... import ()
 # doc strings
