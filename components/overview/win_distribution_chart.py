@@ -14,8 +14,6 @@ def render(app: Dash, data: pd.DataFrame) -> html.Div:
     wins_df['Spieler'] = pd.Categorical(wins_df['Spieler'], [DataSchema.DENIZ, DataSchema.DANYEL, DataSchema.ROBIN, 'Unentschieden'])
     wins_df = wins_df.sort_values(['Spieler'])
 
-    print(wins_df)
-
     return html.Div(
         children=[
             dcc.Graph(

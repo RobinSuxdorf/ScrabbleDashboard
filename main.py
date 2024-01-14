@@ -1,7 +1,6 @@
-# highest score, etc.
 # design
 
-# readme -> run the app
+# readme -> run the app, requirements, etc.
 # improve imports from ... import ()
 # doc strings
 # naming in csv
@@ -18,6 +17,14 @@
 
 # game analysis
     # best turn
+    # average turn
+    # count of turns
+
+# settings
+    # language
+    # player colors
+    # light/dark mode
+    # selected players
 
 # add entry
 
