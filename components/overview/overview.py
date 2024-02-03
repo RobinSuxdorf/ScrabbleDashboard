@@ -8,10 +8,31 @@ from . import score_boxplot
 
 def render(app: Dash, data: pd.DataFrame) -> html.Div:
     return html.Div(
+        className='grid-container',
         children=[
-            win_distribution_chart.render(app, data),
-            score_distribution_chart.render(app, data),
-            basic_stats.render(app, data),
-            score_boxplot.render(app, data)
+            html.Div(
+                className='grid-item',
+                children=[
+                    win_distribution_chart.render(app, data)
+                ]
+            ),
+            html.Div(
+                className='grid-item',
+                children=[
+                    score_distribution_chart.render(app, data)
+                ]
+            ),
+            html.Div(
+                className='grid-item',
+                children=[
+                    basic_stats.render(app, data)
+                ]
+            ),
+            html.Div(
+                className='grid-item',
+                children=[
+                    score_boxplot.render(app, data)
+                ]
+            )
         ]
     )
