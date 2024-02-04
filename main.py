@@ -1,24 +1,3 @@
-# design
-# categorize wins
-
-# readme -> run the app, requirements, etc.
-# improve imports from ... import ()
-# doc strings
-# naming in csv
-
-# game analysis
-    # best turn
-    # average turn
-    # count of turns
-
-# settings
-    # language
-    # player colors
-    # light/dark mode
-    # selected players
-
-# add entry
-
 from dash import Dash
 import pandas as pd
 
