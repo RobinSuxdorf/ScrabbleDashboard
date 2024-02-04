@@ -1,19 +1,10 @@
 # design
+# categorize wins
 
 # readme -> run the app, requirements, etc.
 # improve imports from ... import ()
 # doc strings
 # naming in csv
-
-# player stats
-    # score distribution, boxplot
-    # distance to winner distribution
-    # lowest/highest score
-    # close looses
-    # games with > 200 points
-    # games with < 100 points
-    # games with > 50 point lead
-        # categorize wins
 
 # game analysis
     # best turn
