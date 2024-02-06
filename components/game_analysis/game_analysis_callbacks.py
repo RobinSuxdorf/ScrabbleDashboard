@@ -6,7 +6,22 @@ from data.loader import DataSchema
 from ..global_stylings import styling
 
 def get_callbacks(app: Dash) -> None:
+    """
+    Returns the callbacks for the game analysis feature.
+
+    Args:
+        app (Dash): The dash app.
+    """
     def clean_game_data(score_data: str) -> list[int]:
+        """
+        Transforms a string representation of a list into a proper list.
+
+        Args:
+            score_data (str): String representation of a list with whitespace as separator, e.g. '[1 2 3]'.
+
+        Returns:
+            list[int]: The list represented by the input string.
+        """
         score_data = score_data[1:-1]
         score_data = score_data.split(' ')
         score_data = [int(v) for v in score_data]
@@ -18,6 +33,16 @@ def get_callbacks(app: Dash) -> None:
         State('game_analysis_table', 'data')
     )
     def update_game_process_graph(selected_rows: list[int], data: pd.DataFrame) -> html.Div:
+        """
+        Callback for generating game graph.
+
+        Args:
+            selected_rows (list[int]): List containing the indices of the selected rows.
+            data (pd.DataFrame): The scrabble data.
+
+        Returns:
+            html.Div: A div containing the game graph.
+        """
         if selected_rows is None:
             return html.Div('No row selected.')
 

@@ -7,6 +7,16 @@ from . import basic_stats
 from . import score_boxplot
 
 def render(app: Dash, data: pd.DataFrame) -> html.Div:
+    """
+    The render function for overview feature.
+
+    Args:
+        app (Dash): The dash app.
+        data (pd.DataFrame): The scrabble data.
+
+    Returns:
+        html.Div: Container for the overview feature.
+    """
     return html.Div(
         className='grid-container',
         children=[

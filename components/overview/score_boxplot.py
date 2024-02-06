@@ -4,6 +4,16 @@ import pandas as pd
 
 from data.loader import DataSchema
 def render(app: Dash, data: pd.DataFrame) -> html.Div:
+    """
+    The render function for the boxplot.
+
+    Args:
+        app (Dash): The dash app.
+        data (pd.DataFrame): The scrabble data.
+
+    Returns:
+        html.Div: Div containing the boxplot chart.
+    """
     return html.Div(
         children=[
             dcc.Graph(

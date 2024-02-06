@@ -11,6 +11,15 @@ class DataSchema:
     ROBIN_SCORES = "robin_scores"
 
 def load_scrabble_data(path: str) -> pd.DataFrame:
+    """
+    Function for loading the scrabble data.
+
+    Args:
+        path (str): The path of the datafile to be uploaded.
+
+    Returns:
+        pd.DataFrame: Returns the scrabble data.
+    """
     data = pd.read_csv(
         path,
         dtype={

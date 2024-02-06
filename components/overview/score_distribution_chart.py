@@ -6,6 +6,16 @@ from data.loader import DataSchema
 from ..global_stylings import styling
 
 def render(app: Dash, data: pd.DataFrame) -> html.Div:
+    """
+    The render function for score distribution chart.
+
+    Args:
+        app (Dash): The dash app.
+        data (pd.DataFrame): The scrabble data.
+
+    Returns:
+        html.Div: Div containing the score distribution chart.
+    """
     return html.Div(
         children=[
             dcc.Graph(

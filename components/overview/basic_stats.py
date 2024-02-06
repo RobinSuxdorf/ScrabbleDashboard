@@ -4,6 +4,15 @@ import pandas as pd
 from data.loader import DataSchema
 
 def calculate_stats(data: pd.DataFrame) -> list[dict[str, Any]]:
+    """
+    Function for calculating some statistics from the scrabbel dataset.
+
+    Args:
+        data (pd.DataFrame): The scrabble data.
+
+    Returns:
+    list[dict[str, Any]]: List of rows containing a name for the statistics and the values for the individual player.
+    """
     players = [DataSchema.DENIZ, DataSchema.DANYEL, DataSchema.ROBIN]
 
     stats: list[dict[str, Any]] = []
@@ -44,6 +53,16 @@ def calculate_stats(data: pd.DataFrame) -> list[dict[str, Any]]:
     return stats
 
 def render(app: Dash, data: pd.DataFrame) -> html.Div:
+    """
+    The render function for the basic_stats table.
+
+    Args:
+        app (Dash): The dash app.
+        data (pd.DataFrame): The scrabble data.
+
+    Returns:
+        html.Div: Div containing the basic stats table.
+    """
     return html.Div(
         children=[
             dash_table.DataTable(

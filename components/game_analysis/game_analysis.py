@@ -5,6 +5,16 @@ import pandas as pd
 from data.loader import DataSchema
 
 def render(app: Dash, data: pd.DataFrame) -> html.Div:
+    """
+    The render function for the game analysis feature.
+
+    Args:
+        app (Dash): The dash app.
+        data (pd.DataFrame): The scrabble data.
+
+    Returns:
+        html.Div: Container for the game analysis feature.
+    """
     filtered_data = data.dropna(subset=[DataSchema.DENIZ_SCORES, DataSchema.DANYEL_SCORES, DataSchema.ROBIN_SCORES])
 
     return html.Div(

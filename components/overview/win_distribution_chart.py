@@ -6,6 +6,16 @@ from data.loader import DataSchema
 from ..global_stylings import styling
 
 def render(app: Dash, data: pd.DataFrame) -> html.Div:
+    """
+    The render function for the win distribution chart.
+
+    Args:
+        app (Dash): The dash app.
+        data (pd.DataFrame): The scrabble data.
+
+    Returns:
+        html.Div: Div containing the win distribution chart.
+    """
     win_counts = data[DataSchema.WINNER].value_counts()
 
     wins_df = pd.DataFrame(win_counts).reset_index()
