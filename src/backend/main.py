@@ -1,3 +1,4 @@
+import sqlite3
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -24,4 +25,15 @@ app.add_middleware(
 
 @app.get("/")
 async def main():
-    return {"message": "Hello World"}
+    try:
+        with sqlite3.connect("scrabble.db") as conn:
+            response = conn.execute("""
+                SELECT name
+                FROM players
+            """)
+
+            result = response.fetchall()
+            players = [r[0] for r in result]
+            return {"players": players}
+    except Exception as e:
+        return {"message": f"Error while fetching players: {e}"}

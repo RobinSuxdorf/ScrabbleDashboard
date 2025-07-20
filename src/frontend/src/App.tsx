@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css'
 
 function App() {
-    const [data, setData] = useState(null);
+    const [data, setData] = useState<string[]>([]);
 
     useEffect(() => {
         fetch("http://127.0.0.1:8000")
@@ -12,19 +12,21 @@ function App() {
                 }
                 return response.json();
             })
-            .then((data) => setData(data))
+            .then((data) => setData(data["players"]))
             .catch((error) => console.error("Fetch error:", error));
     }, []);
 
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
-
     return (
     <>
-        <p>
-            {data ? JSON.stringify(data, null, 4) : "Loading..."}
-        </p>
+        {data.length > 0 ? (
+            <ul>
+                {data.map((name: string, index: number) => (
+                    <li key={index}>{name}</li>
+                ))}
+            </ul>
+        ) : (
+            <p>Loading players...</p>
+        )}
     </>
      )
 }
