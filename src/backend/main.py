@@ -1,7 +1,22 @@
+import contextlib
 import sqlite3
-from fastapi import FastAPI
+from pydantic import BaseModel
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
+
+class Game(BaseModel):
+    game_id: int
+    winner: str | None
+
+@contextlib.contextmanager
+def get_connection(db_path: str = "scrabble.db")-> sqlite3.Connection:
+    conn: sqlite3.Connection = sqlite3.connect(db_path)
+
+    try:
+        yield conn
+    finally:
+        conn.close()
 
 app = FastAPI()
 
@@ -23,17 +38,17 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-async def main():
+@app.get("/games", response_model=list[Game])
+async def get_games() -> list[Game]:
     try:
-        with sqlite3.connect("scrabble.db") as conn:
+        with get_connection() as conn:
+            conn.row_factory = sqlite3.Row
             response = conn.execute("""
-                SELECT name
-                FROM players
+                SELECT g.game_id, p.name as winner
+                FROM games g
+                LEFT JOIN players p ON p.player_id = g.winner
             """)
 
-            result = response.fetchall()
-            players = [r[0] for r in result]
-            return {"players": players}
+            return [Game(**dict(row)) for row in response.fetchall()]
     except Exception as e:
-        return {"message": f"Error while fetching players: {e}"}
+        raise HTTPException(status_code=500, detail=f"Error while fetching  games: {e}")
