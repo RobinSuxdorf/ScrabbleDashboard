@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 class Game(BaseModel):
     game_id: int
+    start_player: str | None
     winner: str | None
 
 @contextlib.contextmanager
@@ -44,9 +45,13 @@ async def get_games() -> list[Game]:
         with get_connection() as conn:
             conn.row_factory = sqlite3.Row
             response = conn.execute("""
-                SELECT g.game_id, p.name as winner
+                SELECT 
+                    g.game_id,
+                    sp.name AS start_player,
+                    wp.name AS winner
                 FROM games g
-                LEFT JOIN players p ON p.player_id = g.winner
+                LEFT JOIN players sp ON sp.player_id = g.started_by
+                LEFT JOIN players wp ON wp.player_id = g.winner
             """)
 
             return [Game(**dict(row)) for row in response.fetchall()]

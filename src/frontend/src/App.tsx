@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import './App.css'
+import './App.css';
 
 interface Game {
     game_id: number;
+    start_player?: string | null;
     winner?: string | null;
 }
 
@@ -17,25 +18,40 @@ function App() {
                 }
                 return response.json();
             })
-            .then((data) => setData(data))
+            .then((data: Game[]) => setData(data))
             .catch((error) => console.error("Fetch error:", error));
     }, []);
 
+    // useEffect(() => {
+    //     console.log(data);
+    // }, [data]);
+
     return (
-    <>
-        {data.length > 0 ? (
-            <ul>
-                {data.map((g: Game) => (
-                    <li key={g.game_id}>
-                        Game #{g.game_id} - Winner: {g.winner ?? "Draw"}
-                    </li>
-                ))}
-            </ul>
-        ) : (
-            <p>Loading players...</p>
-        )}
-    </>
-     )
+        <table>
+            <thead>
+                <tr>
+                    <th>Spiel</th>
+                    <th>Startspieler</th>
+                    <th>Sieger</th>
+                </tr>
+            </thead>
+            <tbody>
+                {data.length > 0 ? (
+                    data.map((g) => (
+                        <tr key={g.game_id}>
+                            <td>{g.game_id}</td>
+                            <td>{g.start_player ?? ""}</td>
+                            <td>{g.winner ?? "Draw"}</td>
+                        </tr>
+                    ))
+                ) : (
+                    <tr>
+                        <td colSpan={3}>Loading games...</td>
+                    </tr>
+                )}
+            </tbody>
+        </table>
+    );
 }
 
-export default App
+export default App;
