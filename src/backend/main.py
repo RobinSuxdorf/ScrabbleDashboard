@@ -39,7 +39,7 @@ app.add_middleware(
 )
 
 
-@app.get("/games", response_model=list[Game])
+@app.get("/games/", response_model=list[Game])
 async def get_games() -> list[Game]:
     try:
         with get_connection() as conn:
@@ -56,4 +56,29 @@ async def get_games() -> list[Game]:
 
             return [Game(**dict(row)) for row in response.fetchall()]
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error while fetching  games: {e}")
+        raise HTTPException(status_code=500, detail=f"Error while fetching games: {e}")
+
+@app.get("/games/{game_id}", response_model=Game)
+async def get_game(game_id: int) -> Game:
+    try:
+        with get_connection() as conn:
+            conn.row_factory = sqlite3.Row
+            response = conn.execute("""
+                SELECT 
+                    g.game_id,
+                    sp.name AS start_player,
+                    wp.name AS winner
+                FROM games g
+                LEFT JOIN players sp ON sp.player_id = g.started_by
+                LEFT JOIN players wp ON wp.player_id = g.winner
+                WHERE g.game_id = ?
+            """, (game_id,))
+
+            row = response.fetchone()
+
+            if row is None:
+                raise HTTPException(status_code=404, detail=f"Game with ID {game_id} not found.")
+
+            return Game(**dict(row))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error while fetching game: {e}")
