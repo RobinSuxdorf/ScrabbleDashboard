@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface Game {
     game_id: number;
@@ -34,7 +35,11 @@ const GameList = () => {
                 {data.length > 0 ? (
                     data.map((g) => (
                         <tr key={g.game_id}>
-                            <td>{g.game_id}</td>
+                            <td>
+                                <Link to={`/games/${g.game_id}`}>
+                                    {g.game_id}
+                                </Link>
+                            </td>
                             <td>{g.start_player ?? ""}</td>
                             <td>{g.winner ?? "Draw"}</td>
                         </tr>
