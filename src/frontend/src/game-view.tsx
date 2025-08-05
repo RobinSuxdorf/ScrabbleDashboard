@@ -7,10 +7,20 @@ interface Game {
     winner?: string | null;
 }
 
+interface PlayerScore {
+    player_id: number;
+    name: string;
+    score: number;
+}
+
+interface GameDetails {
+    game: Game;
+    player_scores: PlayerScore[];
+}
 
 const GameView = () => {
     const { id } = useParams<{ id: string}>();
-    const [game, setGame] = useState<Game | null>(null)
+    const [gameDetails, setGameDetails] = useState<GameDetails | null>(null)
 
     useEffect(() => {
         if (!id) return;
@@ -22,18 +32,38 @@ const GameView = () => {
                 }
                 return response.json();
             })
-            .then((data: Game) => {
-                setGame(data);
+            .then((data: GameDetails) => {
+                setGameDetails(data);
             });
     }, [id]);
 
-    if (!game) return <p>Game not found.</p>
+    if (!gameDetails) return <p>Game not found.</p>
 
     return (
         <div>
-            <h2>Game #{game.game_id}</h2>
-            <p>Start Player: {game.start_player ?? "Unknown"}</p>
-            <p>Winner: {game?.winner ?? "Draw"}</p>
+            <h2>Game #{gameDetails.game.game_id}</h2>
+            <p>Start Player: {gameDetails.game.start_player ?? "Unknown"}</p>
+            <p>Winner: {gameDetails.game.winner ?? "Draw"}</p>
+
+            <h3>Player Scores</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Player ID</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {gameDetails.player_scores.map((score: PlayerScore) => (
+                        <tr key={score.player_id}>
+                            <td>{score.player_id}</td>
+                            <td>{score.name}</td>
+                            <td>{score.score}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 }
