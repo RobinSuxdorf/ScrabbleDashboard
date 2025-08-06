@@ -51,6 +51,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/players/", response_model=list[Player])
+async def get_players() -> list[Player]:
+    try:
+        with get_connection() as conn:
+            conn.row_factory = sqlite3.Row
+            games = conn.execute("""
+                SELECT
+                    player_id,
+                    name
+                FROM players
+            """).fetchall()
+
+            return [Player(**dict(game)) for game in games]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error while fetching players: {e}")
+
 @app.get("/players/{player_id}", response_model=Player)
 async def get_player(player_id: int) -> Player:
     try:
