@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface Player {
     player_id: number;
