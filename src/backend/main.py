@@ -5,6 +5,10 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 
+class Player(BaseModel):
+    player_id: int
+    name: str
+
 class Game(BaseModel):
     game_id: int
     start_player: str | None
@@ -47,6 +51,43 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/players/", response_model=list[Player])
+async def get_players() -> list[Player]:
+    try:
+        with get_connection() as conn:
+            conn.row_factory = sqlite3.Row
+            games = conn.execute("""
+                SELECT
+                    player_id,
+                    name
+                FROM players
+            """).fetchall()
+
+            return [Player(**dict(game)) for game in games]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error while fetching players: {e}")
+
+@app.get("/players/{player_id}", response_model=Player)
+async def get_player(player_id: int) -> Player:
+    try:
+        with get_connection() as conn:
+            conn.row_factory = sqlite3.Row
+            player_row = conn.execute("""
+                SELECT 
+                    player_id,
+                    name
+                FROM players 
+                WHERE player_id = ?
+            """, (player_id,)).fetchone()
+
+
+            if player_row is None:
+                raise HTTPException(status_code=404, detail=f"Player with ID {player_id} not found.")
+
+            return Player(**dict(player_row))
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error while fetching player: {e}")
 
 @app.get("/games/", response_model=list[Game])
 async def get_games() -> list[Game]:
