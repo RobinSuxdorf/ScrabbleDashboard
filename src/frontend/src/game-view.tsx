@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 interface Game {
     game_id: number;
@@ -57,7 +57,11 @@ const GameView = () => {
                 <tbody>
                     {gameDetails.player_scores.map((score: PlayerScore) => (
                         <tr key={score.player_id}>
-                            <td>{score.player_id}</td>
+                            <td>
+                                <Link to={`/players/${score.player_id}`}>
+                                    {score.player_id}
+                                </Link>
+                            </td>
                             <td>{score.name}</td>
                             <td>{score.score}</td>
                         </tr>
